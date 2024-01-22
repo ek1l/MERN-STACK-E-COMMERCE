@@ -7,7 +7,7 @@ import {
   FaUser,
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-const user = { _id: 'dsaasd', role: 'admin' };
+const user = { _id: 'sadadsasdsadasd', role: 'admin' };
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -37,7 +37,6 @@ const Header = () => {
                   Admin
                 </Link>
               )}
-
               <Link onClick={() => setIsOpen(false)} to="/roaders">
                 Orders
               </Link>
