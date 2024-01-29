@@ -7,13 +7,14 @@ import {
   FaUser,
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-const user = { _id: 'sadadsasdsadasd', role: 'admin' };
+const user = { _id: '', role: '' };
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const logoutHandler = () => {
     setIsOpen(false);
   };
+
   return (
     <nav className="header">
       <Link onClick={() => setIsOpen(false)} to={'/'}>

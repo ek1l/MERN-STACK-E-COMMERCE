@@ -16,6 +16,7 @@
   align-items: $alignItems;
   gap: $gap;
 }
+
 @mixin grid($col: 1fr, $gap: 1rem, $row: unset) {
   display: grid;
   grid-template-columns: $col;
