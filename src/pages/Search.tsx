@@ -1,15 +1,52 @@
 import { useState } from 'react';
 import ProductCard from '../components/Product-card';
+import {
+  useCategoriesQuery,
+  useSearchProductsQuery,
+} from '../redux/api/productAPI';
+import { CustomError } from '../types/api-types';
+import toast from 'react-hot-toast';
+import { Skeleton } from '../components/Loader';
 
 const Search = () => {
+  const {
+    data: categoriesResponse,
+    isLoading: loadingCategories,
+    isError,
+    error,
+  } = useCategoriesQuery('');
   const [search, setSearch] = useState<string>('');
   const [sort, setSort] = useState<string>('');
   const [maxPrice, setMaxPrice] = useState<number>(100000);
   const [category, setCategory] = useState<string>('');
   const [page, setPage] = useState<number>(1);
+
+  const {
+    isLoading: productLoading,
+    data: searchedData,
+    isError: productIsError,
+    error: productError,
+  } = useSearchProductsQuery({
+    search,
+    sort,
+    category,
+    page,
+    price: maxPrice,
+  });
+
   const addToCartHandler = () => {};
   const isPrevtPage = page > 1;
   const isNextPage = page < 4;
+
+  if (isError) {
+    const err = error as CustomError;
+    toast.error(err.data.message);
+  }
+
+  if (productIsError) {
+    const err = productIsError as unknown as CustomError;
+    toast.error(err.data.message);
+  }
   return (
     <div className="product-search-page">
       <aside>
@@ -17,7 +54,7 @@ const Search = () => {
         <div>
           <h4>Sort</h4>
           <select value={sort} onChange={(e) => setSort(e.target.value)}>
-            <option value=""></option>
+            <option value="All">All</option>
             <option value="asc">Price (Low to High)</option>
             <option value="dsc">Price (High to Low)</option>
           </select>
@@ -41,8 +78,12 @@ const Search = () => {
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="">All</option>
-            <option value="">Sample2</option>
-            <option value="">Sample2</option>
+            {!loadingCategories &&
+              categoriesResponse?.categories.map((i) => (
+                <option key={i} value={i}>
+                  {i.toUpperCase()}
+                </option>
+              ))}
           </select>
         </div>
       </aside>
@@ -54,33 +95,42 @@ const Search = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <div className="search-product-list">
-          <ProductCard
-            productID="dasadsads"
-            name="macbook"
-            price={4545}
-            stock={435}
-            photo="https://i.zst.com.br/thumbs/12/37/12/-36761254.jpg"
-            handler={addToCartHandler}
-          />
-        </div>
-        <article>
-          <button
-            disabled={!isPrevtPage}
-            onClick={() => setPage((prev) => prev - 1)}
-          >
-            Prev
-          </button>
-          <span>
-            {page} of {4}
-          </span>
-          <button
-            disabled={!isNextPage}
-            onClick={() => setPage((prev) => prev + 1)}
-          >
-            Next
-          </button>
-        </article>
+        {productLoading ? (
+          <Skeleton length={10} width="80vw" />
+        ) : (
+          <div className="search-product-list">
+            {searchedData?.products.map((i) => (
+              <ProductCard
+                productID={i._id}
+                key={i._id}
+                name={i.name}
+                price={i.price}
+                stock={i.stock}
+                photo={i.photo}
+                handler={addToCartHandler}
+              />
+            ))}
+          </div>
+        )}
+        {searchedData && searchedData.totalPage >= 1 && (
+          <article>
+            <button
+              disabled={!isPrevtPage}
+              onClick={() => setPage((prev) => prev - 1)}
+            >
+              Prev
+            </button>
+            <span>
+              {page} of {searchedData.totalPage}
+            </span>
+            <button
+              disabled={!isNextPage}
+              onClick={() => setPage((prev) => prev + 1)}
+            >
+              Next
+            </button>
+          </article>
+        )}
       </main>
     </div>
   );
