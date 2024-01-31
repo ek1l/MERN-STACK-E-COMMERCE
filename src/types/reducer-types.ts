@@ -6,12 +6,12 @@ export interface UserReducerInitialState {
 }
 
 export interface CartReducerInitialState {
+  loading: boolean;
   cartItems: CartItem[];
   subtotal: number;
   tax: number;
   shippingCharges: number;
   discount: number;
   total: number;
-  loading: boolean;
   shippingInfo: ShippingInfo;
 }
