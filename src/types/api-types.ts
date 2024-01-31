@@ -77,6 +77,7 @@ export type UpdateOrderRequest = {
 };
 
 export type AllOrdersResponse = {
+  orders: any;
   success: boolean;
   products: Order[];
 };

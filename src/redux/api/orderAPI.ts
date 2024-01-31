@@ -56,4 +56,5 @@ export const {
   useDeleteOrderMutation,
   useMyOrdersQuery,
   useOrderDetailsQuery,
+  useAllOrdersQuery,
 } = orderApi;
