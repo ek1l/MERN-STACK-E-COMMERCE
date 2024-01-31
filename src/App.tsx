@@ -8,7 +8,7 @@ import { auth } from './firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { userExist, userNotExist } from './redux/reducer/userReduces';
 import { getUser } from './redux/api/userAPI';
-import { UserReducerInitialState } from './types/reducer-types';
+
 import ProtectedRoute from './components/protected-route';
 import { RootState } from './redux/store';
 
@@ -51,8 +51,6 @@ const App = () => {
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-      
- 
         const data = await getUser(user.uid);
         dispatch(userExist(data.user));
       } else dispatch(userNotExist());
