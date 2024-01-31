@@ -50,6 +50,8 @@ const App = () => {
       } else dispatch(userNotExist());
     });
   }, []);
+
+
   return loading ? (
     <Loader />
   ) : (
