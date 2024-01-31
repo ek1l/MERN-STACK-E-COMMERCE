@@ -3,6 +3,7 @@ import {
   AllOrdersResponse,
   MessageResponse,
   NewOrderRequest,
+  OrderDetailsResponse,
   UpdateOrderRequest,
 } from '../../types/api-types';
 
@@ -43,7 +44,7 @@ export const orderApi = createApi({
       query: (id) => `all?id=${id}`,
       providesTags: ['orders'],
     }),
-    orderDetails: builder.query<AllOrdersResponse, string>({
+    orderDetails: builder.query<OrderDetailsResponse, string>({
       query: (id) => id,
       providesTags: ['orders'],
     }),

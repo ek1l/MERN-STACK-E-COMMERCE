@@ -10,6 +10,7 @@ import { userExist, userNotExist } from './redux/reducer/userReduces';
 import { getUser } from './redux/api/userAPI';
 import { UserReducerInitialState } from './types/reducer-types';
 import ProtectedRoute from './components/protected-route';
+
 const Home = lazy(() => import('./pages/Home'));
 const Search = lazy(() => import('./pages/Search'));
 const Cart = lazy(() => import('./pages/Cart'));
@@ -35,6 +36,8 @@ const ProductManagement = lazy(
 const TransactionManagement = lazy(
   () => import('./pages/admin/management/transactionmanagement'),
 );
+const NotFound = lazy(() => import('./pages/not-found'));
+const Checkout = lazy(() => import('./pages/Checkout'));
 
 // Rotues
 const App = () => {
@@ -50,7 +53,6 @@ const App = () => {
       } else dispatch(userNotExist());
     });
   }, []);
-
 
   return loading ? (
     <Loader />
@@ -78,6 +80,7 @@ const App = () => {
             <Route path="/shipping" element={<Shipping />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/order/:id" element={<OrderDetails />} />
+            <Route path="/pay" element={<Checkout />} />
           </Route>
           {/*  ADMIN ROUTES */}
           <Route
@@ -113,6 +116,7 @@ const App = () => {
             />
           </Route>
           {/* </Route> */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
       <Toaster position="bottom-center" />

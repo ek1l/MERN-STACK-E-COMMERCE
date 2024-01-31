@@ -38,10 +38,10 @@ export type OrderItem = Omit<CartItem, 'stock'> & { _id: string };
 
 export type Order = {
   price: any;
-  price: any;
   stock: any;
   name: any;
   photo: any;
+
   orderItems: OrderItem[];
   shippingInfo: ShippingInfo;
   subtotal: number;

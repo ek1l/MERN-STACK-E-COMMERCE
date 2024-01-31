@@ -68,6 +68,7 @@ export type NewOrderRequest = {
   shippingCharges: number;
   discount: number;
   total: number;
+  subtotal: number;
   user: string;
 };
 
@@ -77,12 +78,11 @@ export type UpdateOrderRequest = {
 };
 
 export type AllOrdersResponse = {
-  orders: any;
   success: boolean;
-  products: Order[];
+  orders: Order[];
 };
 
 export type OrderDetailsResponse = {
   success: boolean;
-  products: Order[];
+  order: Order | undefined;
 };

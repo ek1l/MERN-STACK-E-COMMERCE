@@ -23,4 +23,4 @@ export const store = configureStore({
     ),
 });
 
-// ERRO PODE SER AQ
+export type RootState = ReturnType<typeof store.getState>;
