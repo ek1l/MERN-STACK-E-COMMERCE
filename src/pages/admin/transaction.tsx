@@ -52,7 +52,7 @@ const Transaction = () => {
   );
 
   const { isLoading, data, isError, error } = useAllOrdersQuery(user?._id!);
-  console.log(data);
+
   const [rows, setRows] = useState<DataType[]>([]);
   if (isError) {
     const err = error as CustomError;

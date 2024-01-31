@@ -49,7 +49,7 @@ const Shipping = () => {
         state: data.clientSecret,
       });
     } catch (error) {
-      console.log(error);
+ 
       toast.error('Something went wrong');
     }
   };
