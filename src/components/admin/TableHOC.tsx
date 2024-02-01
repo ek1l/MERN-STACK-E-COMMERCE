@@ -1,21 +1,21 @@
 import {
   AiOutlineSortAscending,
   AiOutlineSortDescending,
-} from "react-icons/ai";
+} from 'react-icons/ai';
 import {
   Column,
   usePagination,
   useSortBy,
   useTable,
   TableOptions,
-} from "react-table";
+} from 'react-table';
 
 function TableHOC<T extends Object>(
   columns: Column<T>[],
   data: T[],
   containerClassname: string,
   heading: string,
-  showPagination: boolean = false
+  showPagination: boolean = false,
 ) {
   return function HOC() {
     const options: TableOptions<T> = {
@@ -50,10 +50,10 @@ function TableHOC<T extends Object>(
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                    {column.render("Header")}
+                    {column.render('Header')}
                     {column.isSorted && (
                       <span>
-                        {" "}
+                        {' '}
                         {column.isSortedDesc ? (
                           <AiOutlineSortDescending />
                         ) : (
@@ -73,7 +73,7 @@ function TableHOC<T extends Object>(
               return (
                 <tr {...row.getRowProps()}>
                   {row.cells.map((cell) => (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                   ))}
                 </tr>
               );
