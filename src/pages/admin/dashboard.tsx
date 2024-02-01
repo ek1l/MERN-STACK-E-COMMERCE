@@ -8,20 +8,16 @@ import Table from '../../components/admin/DashboardTable';
 import { useStatsQuery } from '../../redux/api/dashboardAPI';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { CustomError } from '../../types/api-types';
-import toast from 'react-hot-toast';
 import { Skeleton } from '../../components/Loader';
+import { Navigate } from 'react-router-dom';
 const userImg =
   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp';
 
 const Dashboard = () => {
   const { user } = useSelector((state: RootState) => state.userReducer);
-  const { isLoading, data, error, isError } = useStatsQuery(user?._id!);
+  const { isLoading, data, isError } = useStatsQuery(user?._id!);
   const stats = data?.stats!;
-  if (isError) {
-    const err = error as CustomError;
-    toast.error(err.data.message);
-  }
+  if (isError) return <Navigate to={'/'} />;
   return (
     <div className="admin-container">
       <AdminSidebar />
