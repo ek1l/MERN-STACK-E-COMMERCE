@@ -44,6 +44,10 @@ export type Order = {
   discount: number;
   total: number;
   status: string;
+  price: number;
+  stock: number;
+  name: string;
+  photo: string;
   user: {
     name: string;
     _id: string;

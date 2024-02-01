@@ -29,7 +29,6 @@ const Search = () => {
     isLoading: productLoading,
     data: searchedData,
     isError: productIsError,
-    error: productError,
   } = useSearchProductsQuery({
     search,
     sort,
@@ -37,7 +36,6 @@ const Search = () => {
     page,
     price: maxPrice,
   });
-
 
   const addToCartHandler = (cartItem: CartItem) => {
     if (cartItem.stock < 1) return toast.error('Out of stock');
@@ -108,7 +106,7 @@ const Search = () => {
           <Skeleton length={10} width="80vw" />
         ) : (
           <div className="search-product-list">
-            {searchedData?.products.map((i) => (
+            {searchedData?.products.map((i: any) => (
               <ProductCard
                 productId={i._id}
                 key={i._id}
